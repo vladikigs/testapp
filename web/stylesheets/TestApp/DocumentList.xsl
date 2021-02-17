@@ -47,6 +47,19 @@
 						по
 						<input size="10" type="text" name="dateEnd-0" value="{$req/req:dateEnd}"/>
 					</label>
+					<br></br>
+					<label title="Фильтр по полю наименование">
+						Фильтр по полю наименование
+						<input size="10" type="text" name="filter-0" value="{$req/req:filter}"/>
+					</label>
+					<br></br>
+					<label title="Формат отчета">
+						Формат отчета
+						<select name="outputFormat-0" value="{$req/req:outputFormat}">
+							<option value="html">html</option>
+							<option value="pdf">pdf</option>
+						</select>
+					</label>
 				</div>
 				<div>
 					<button  type="submit">Отправить</button>
@@ -63,6 +76,9 @@
 				<tr>
 					<th>Дата</th>
 					<th>Наименование</th>
+					<th>Удален (да/нет)</th>
+					<th>Ключевые слова</th>
+					
 				</tr>
 				<xsl:for-each select="obj:Document">
 					<tr>
@@ -72,6 +88,16 @@
 						<td>
 							<a href="document.php?objectId-0={obj:objectId}">
 								<xsl:value-of select="obj:displayName"/>
+							</a>
+						</td>
+						<td>
+							<a>
+								<xsl:value-of select="obj:deleted"/>
+							</a>
+						</td>
+						<td>
+							<a href="document.php?objectId-0={obj:objectId}">
+								<xsl:value-of select="obj:keywords"/>
 							</a>
 						</td>
 					</tr>

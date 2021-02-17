@@ -21,7 +21,12 @@ class TestApp_DocumentListRequest extends Adaptor_XMLBase {
 	 * @var Basictypes_Date
 	 */
 	public $dateEnd;
-
+	/**
+	 * Конец периода
+	 *
+	 * @var string
+	 */
+	public $filter;
 	/**
 	 * Формат вывода
 	 *
@@ -34,6 +39,7 @@ class TestApp_DocumentListRequest extends Adaptor_XMLBase {
 	public function  __construct() {
 		$this->dateStart=new Basictypes_Date("2000-01-01");
 		$this->dateEnd=new Basictypes_Date();
+		$this->filter="";
 	}
 	/**
 	 * Вывод в XMLWriter
@@ -48,6 +54,7 @@ class TestApp_DocumentListRequest extends Adaptor_XMLBase {
 		if ($mode&Adaptor_XML::STARTELEMENT) $xw->startElementNS(NULL,$xmlname,$xmlns);
 			if($this->dateStart!==NULL) {$xw->writeElement("dateStart",$this->dateStart->LogicalToXSD());}
 			if($this->dateEnd!==NULL) {$xw->writeElement("dateEnd",$this->dateEnd->LogicalToXSD());}
+			if($this->filter!==NULL) {$xw->writeElement("filter",$this->filter);}
 			if($this->outputFormat!==NULL) {$xw->writeElement("outputFormat",$this->outputFormat);}
 		if ($mode&Adaptor_XML::ENDELEMENT) $xw->endElement();
 	}
@@ -67,6 +74,7 @@ class TestApp_DocumentListRequest extends Adaptor_XMLBase {
 					case "dateStart": $this->dateStart=$xsinil?NULL:new Basictypes_Date($xr->readString(),Adaptor_DataType::XSD); break;
 					case "dateEnd": $this->dateEnd=$xsinil?NULL:new Basictypes_Date($xr->readString(),Adaptor_DataType::XSD); break;
 					case "outputFormat": $this->outputFormat=$xsinil?NULL:$xr->readString(); break;
+					case "filter": $this->filter=$xsinil?NULL:$xr->readString(); break;
 				}
 			}elseif($xr->nodeType==XMLReader::END_ELEMENT&&$root==$xr->localName){
 				return;
